@@ -128,7 +128,7 @@ function Index() {
           <div className="relative mx-auto h-[420px] w-full max-w-md sm:h-[480px]">
             <div className="lux-frame absolute left-0 top-6 h-56 w-40 rotate-[-6deg] sm:h-64 sm:w-44"><img src={shop4.url} alt="Edison lamp boven Bandido wax" className="h-full w-full object-cover" /></div>
             <div className="lux-frame absolute bottom-0 right-0 h-56 w-40 rotate-[6deg] sm:h-64 sm:w-44"><img src={shop5.url} alt="Verlichte barberpaal" className="h-full w-full object-cover" /></div>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 sm:h-72 sm:w-72">
               <div className="absolute inset-0 rounded-full bg-primary/30 blur-3xl" />
               <img src={logo.url} alt="King Barbershop embleem" className="animate-float relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover shadow-gold sm:h-72 sm:w-72" />
             </div>
