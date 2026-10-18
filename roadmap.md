@@ -1,0 +1,3 @@
+- [ ] Add decorative barber poles, ambient motion, logo aura and scroll/hover effects.
+- [ ] Add six style portraits, category filters and style-specific WhatsApp links using existing prices.
+- [ ] Verify filters, links, original shop content and mobile layout.
