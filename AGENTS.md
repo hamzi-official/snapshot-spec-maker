@@ -9,3 +9,5 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 - Shop data (prices, hours, contact) and open-status/WhatsApp logic live in src/lib/shop.ts, tested in src/test/shop.test.ts — single source of truth for the page.
+- Style records map to shop service IDs and derive prices and WhatsApp messages from shop data to prevent pricing drift.
+- Decorative motion is isolated in luxury-motion with CSS animations and reduced-motion fallbacks to keep content accessible without animation.
