@@ -4,6 +4,8 @@ import {
   Crown, Scissors, Sparkles, CalendarDays, MapPin, Phone, Mail, Clock, MessageCircle, X, Instagram, Navigation, Menu,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { BarberPole, AmbientBackground, useLuxuryReveals } from "@/components/luxury-motion";
+import { StyleShowcase } from "@/components/style-showcase";
 import logo from "@/assets/logo.jpeg.asset.json";
 import shop1 from "@/assets/shop1.jpeg.asset.json";
 import shop2 from "@/assets/shop2.jpeg.asset.json";
@@ -63,10 +65,11 @@ function StatusBadge({ open }: { open: boolean | null }) {
   );
 }
 
-const goldBtn = "inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110 hover:-translate-y-0.5";
+const goldBtn = "luxury-shimmer inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110 hover:-translate-y-0.5";
 const outlineBtn = "inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/10";
 
 function Index() {
+  useLuxuryReveals();
   const open = useOpen();
   const [modal, setModal] = useState<null | "choose" | "walkin" | "book">(null);
   const [selected, setSelected] = useState<string[]>([]);
@@ -77,7 +80,8 @@ function Index() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background pb-20 md:pb-0">
+    <div className="site-shell relative isolate min-h-screen overflow-x-hidden pb-20 md:pb-0">
+      <AmbientBackground />
       {/* NAV */}
       <header className="glass fixed inset-x-0 top-0 z-40 border-b border-border">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
@@ -125,13 +129,17 @@ function Index() {
               <a href="#contact" className={outlineBtn}><MapPin className="h-4 w-4" />Kom Zonder Afspraak Langs</a>
             </div>
           </div>
-          <div className="relative mx-auto h-[420px] w-full max-w-md sm:h-[480px]">
+          <div className="hero-showcase relative mx-auto h-[420px] w-full max-w-md sm:h-[480px]">
             <div className="lux-frame absolute left-0 top-6 h-56 w-40 rotate-[-6deg] sm:h-64 sm:w-44"><img src={shop4.url} alt="Edison lamp boven Bandido wax" className="h-full w-full object-cover" /></div>
             <div className="lux-frame absolute bottom-0 right-0 h-56 w-40 rotate-[6deg] sm:h-64 sm:w-44"><img src={shop5.url} alt="Verlichte barberpaal" className="h-full w-full object-cover" /></div>
             <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 sm:h-72 sm:w-72">
               <div className="absolute inset-0 rounded-full bg-primary/30 blur-3xl" />
-              <img src={logo.url} alt="King Barbershop embleem" className="animate-float relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover shadow-gold sm:h-72 sm:w-72" />
+              <div className="royal-emblem relative h-full w-full">
+                <div className="royal-halo" aria-hidden="true" />
+                <img src={logo.url} alt="King Barbershop embleem" className="relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover shadow-gold sm:h-72 sm:w-72" />
+              </div>
             </div>
+            <div className="hero-pole"><BarberPole /></div>
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 border-t border-border glass">
@@ -143,7 +151,7 @@ function Index() {
       </section>
 
       {/* OVER ONS */}
-      <section id="over" className="relative mx-auto max-w-7xl px-4 py-28">
+      <section id="over" data-reveal className="relative mx-auto max-w-7xl px-4 py-28">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="grid grid-cols-2 gap-4">
             <div className="lux-frame row-span-2 h-[460px]"><img src={shop3.url} alt="Hexagon LED plafond" loading="lazy" className="h-full w-full object-cover" /></div>
@@ -175,16 +183,16 @@ function Index() {
       </section>
 
       {/* PRIJZEN */}
-      <section id="prijzen" className="relative py-28">
+      <section id="prijzen" data-reveal className="relative py-28">
         <div className="glow-blue absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2" />
         <div className="relative mx-auto max-w-4xl px-4">
           <div className="text-center">
             <Crown className="mx-auto h-8 w-8 text-primary" />
-            <h2 className="mt-3 text-3xl font-bold sm:text-5xl"><span className="text-gold">Prijslijst</span></h2>
+            <div className="mt-3 flex items-center justify-center gap-5 sm:gap-8"><BarberPole small /><h2 className="text-3xl font-bold sm:text-5xl"><span className="text-gold">Prijslijst</span></h2></div>
           </div>
           <div className="mt-12 rounded-3xl border border-primary/40 bg-card/80 p-4 shadow-gold sm:p-10">
             {SERVICES.map((s) => (
-              <div key={s.id} className="flex flex-col gap-3 border-b border-border py-6 last:border-0 sm:flex-row sm:items-center">
+              <div key={s.id} className="luxury-shimmer price-row flex flex-col gap-3 border-b border-border py-6 last:border-0 sm:flex-row sm:items-center">
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-lg font-bold uppercase tracking-wider">{s.name}</h3>
@@ -204,7 +212,8 @@ function Index() {
       </section>
 
       {/* GALERIJ */}
-      <section id="galerij" className="mx-auto max-w-7xl px-4 py-28">
+      <StyleShowcase />
+      <section id="galerij" data-reveal className="mx-auto max-w-7xl px-4 py-28">
         <h2 className="text-center text-3xl font-bold sm:text-5xl"><span className="text-gold">Galerij</span></h2>
         <div className="mt-12 grid auto-rows-[220px] grid-cols-2 gap-4 md:grid-cols-4">
           {[
@@ -232,7 +241,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-3xl px-4 py-28">
+      <section id="faq" data-reveal className="mx-auto max-w-3xl px-4 py-28">
         <h2 className="text-center text-3xl font-bold sm:text-4xl">Veelgestelde <span className="text-gold">Vragen</span></h2>
         <Accordion type="single" collapsible className="mt-10">
           {[
@@ -250,7 +259,7 @@ function Index() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="mx-auto max-w-7xl px-4 py-28">
+      <section id="contact" data-reveal className="mx-auto max-w-7xl px-4 py-28">
         <h2 className="text-center text-3xl font-bold sm:text-4xl">Locatie & <span className="text-gold">Openingstijden</span></h2>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <div className="space-y-6 rounded-2xl border border-border bg-card p-8">
