@@ -12,7 +12,7 @@ describe("whatsapp", () => {
   it("includes combo price and total to the shop number", () => {
     const url = buildWhatsAppUrl(["combo", "wassen"], "Jan", "Zaterdag 10u");
     expect(url.startsWith("https://wa.me/32465467934?text=")).toBe(true);
-    const text = decodeURIComponent(url.split("text=")[1]);
+    const text = decodeURIComponent(url.split("text=")[1] ?? "");
     expect(text).toContain("€30");
     expect(text).toContain("Totaal: €34");
   });
