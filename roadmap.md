@@ -1,3 +1,8 @@
 - [x] Add decorative barber poles, ambient motion, logo aura and scroll/hover effects.
 - [x] Add six style portraits, category filters and style-specific WhatsApp links using existing prices.
 - [x] Verify filters, links, original shop content and mobile layout.
+- [ ] Remove all prices; rename price section to Onze Behandelingen.
+- [ ] GDPR cookie banner with preferences + legal modals in footer.
+- [ ] Facebook links everywhere alongside Instagram/TikTok.
+- [ ] Filterable gallery with new photos + full-screen lightbox.
+- [ ] Barber tool animated background (hero, gallery) + radar/pin location with storefront photo and parking badge.

@@ -9,11 +9,11 @@ describe("openingstijden", () => {
 });
 
 describe("whatsapp", () => {
-  it("includes combo price and total to the shop number", () => {
+  it("lists chosen treatments to the shop number without prices", () => {
     const url = buildWhatsAppUrl(["combo", "wassen"], "Jan", "Zaterdag 10u");
     expect(url.startsWith("https://wa.me/32465467934?text=")).toBe(true);
     const text = decodeURIComponent(url.split("text=")[1] ?? "");
-    expect(text).toContain("€30");
-    expect(text).toContain("Totaal: €34");
+    expect(text).toContain("Behandeling: Haar / Baard Combo, Wassen");
+    expect(text).not.toContain("€");
   });
 });
