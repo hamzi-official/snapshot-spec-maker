@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MessageCircle, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { STYLE_FILTERS, filterStyles, stylePrice, styleBookingUrl, type StyleCategory } from "@/lib/styles";
+import { STYLE_FILTERS, filterStyles, styleBookingUrl, type StyleCategory } from "@/lib/styles";
 import skin from "@/assets/style-a-1.jpg";
 import combo from "@/assets/style-a-2.jpg";
 import crop from "@/assets/style-a-3.jpg";
@@ -25,7 +25,6 @@ export function StyleShowcase() {
       {filterStyles(category).map((style) => <article key={style.id} className="style-card group overflow-hidden rounded-lg border border-border bg-card">
         <a href={styleBookingUrl(style)} target="_blank" rel="noreferrer" aria-label={`Reserveer ${style.name} via WhatsApp`} className="relative block overflow-hidden aspect-[4/5]">
           <img src={portraits[style.id]} alt={style.name} loading="lazy" width={640} height={1024} className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-          <span className="absolute right-4 top-4 rounded-full border border-primary/60 bg-background/90 px-4 py-2 font-display text-lg font-bold text-gold-light">€{stylePrice(style)}</span>
           <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-gold text-primary-foreground"><ArrowUpRight className="h-5 w-5" /></span>
         </a>
         <div className="p-5">
