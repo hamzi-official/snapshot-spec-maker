@@ -10,7 +10,9 @@ import { CookieConsent, LegalModal } from "@/components/legal";
 import outside2 from "@/assets/outside2.jpeg.asset.json";
 import { StyleShowcase } from "@/components/style-showcase";
 import logo from "@/assets/logo.jpeg.asset.json";
+import shop1 from "@/assets/shop1.jpeg.asset.json";
 import shop2 from "@/assets/shop2.jpeg.asset.json";
+import shop3 from "@/assets/shop3.jpeg.asset.json";
 import shop4 from "@/assets/shop4.jpeg.asset.json";
 import shop5 from "@/assets/shop5.jpeg.asset.json";
 import {
