@@ -5,15 +5,17 @@ export const ADDRESS = "Turnhoutsebaan 21, 2480 Dessel";
 export const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Turnhoutsebaan+21,+2480+Dessel";
 export const INSTAGRAM = "https://www.instagram.com/king.barbershop.dessel";
 export const TIKTOK = "https://www.tiktok.com/@king.barbershop.dessel";
+export const FACEBOOK = "https://www.facebook.com/king.barbershop.dessel";
 
-export type Service = { id: string; name: string; price: number; desc: string; badge?: string };
+/** Prices are intentionally not published on the site. */
+export type Service = { id: string; name: string; desc: string; badge?: string };
 export const SERVICES: Service[] = [
-  { id: "haar", name: "Haar", price: 20, desc: "Frisse coupe, strakke fade of klassieke snit inclusief professionele styling" },
-  { id: "combo", name: "Haar / Baard Combo", price: 30, desc: "Complete koninklijke behandeling: knippen, strakke fade, baard trimmen & contouren", badge: "👑 Meest Gekozen - Royal Deal" },
-  { id: "baard", name: "Baard", price: 15, desc: "Baard modelleren, strakke lijnen en verzorging" },
-  { id: "kids", name: "Kinderen (tot 11 jaar)", price: 18, desc: "Stoere en nette knipbeurt voor onze jonge koningen t/m 11 jaar" },
-  { id: "wassen", name: "Wassen", price: 4, desc: "Verfrissende haarwas met verzorgende shampoo" },
-  { id: "wax", name: "Gezichtwax", price: 7, desc: "Pijnloos en glad verwijderen van ongewenste gezichtshaartjes op wangen en oren" },
+  { id: "haar", name: "Haar", desc: "Frisse coupe, strakke fade of klassieke snit inclusief professionele styling" },
+  { id: "combo", name: "Haar / Baard Combo", desc: "Complete koninklijke behandeling: knippen, strakke fade, baard trimmen & contouren", badge: "👑 Meest Gekozen - Royal Deal" },
+  { id: "baard", name: "Baard", desc: "Baard modelleren, strakke lijnen en verzorging" },
+  { id: "kids", name: "Kinderen (tot 11 jaar)", desc: "Stoere en nette knipbeurt voor onze jonge koningen t/m 11 jaar" },
+  { id: "wassen", name: "Wassen", desc: "Verfrissende haarwas met verzorgende shampoo" },
+  { id: "wax", name: "Gezichtwax", desc: "Pijnloos en glad verwijderen van ongewenste gezichtshaartjes op wangen en oren" },
 ];
 
 export const HOURS = [
@@ -32,15 +34,14 @@ export function isOpen(date: Date = new Date()): boolean {
   return mins >= 9 * 60 && mins < close;
 }
 
-export function buildWhatsAppUrl(ids: string[], name: string, when: string): string {
+export function buildWhatsAppUrl(ids: string[], name: string, when: string, extra?: string): string {
   const chosen = SERVICES.filter((s) => ids.includes(s.id));
-  const total = chosen.reduce((a, s) => a + s.price, 0);
   const lines = [
     "Hallo King Barbershop! 👑",
     "Ik wil graag een afspraak maken.",
     "",
-    `Behandeling: ${chosen.map((s) => `${s.name} (€${s.price})`).join(", ") || "Nog te bepalen"}`,
-    chosen.length ? `Totaal: €${total}` : "",
+    `Behandeling: ${chosen.map((s) => s.name).join(", ") || "Nog te bepalen"}`,
+    extra ?? "",
     `Naam: ${name || "-"}`,
     `Gewenste dag/tijd: ${when || "-"}`,
   ].filter((l, i) => l !== "" || i === 2);

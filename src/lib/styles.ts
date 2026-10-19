@@ -14,11 +14,9 @@ export type HaircutStyle = (typeof HAIRCUT_STYLES)[number];
 export function filterStyles(category: StyleCategory) {
   return HAIRCUT_STYLES.filter((style) => category === "Alle Stijlen" || style.category === category);
 }
-export function stylePrice(style: HaircutStyle) {
-  return SERVICES.find((service) => service.id === style.serviceId)?.price;
+export function styleService(style: HaircutStyle) {
+  return SERVICES.find((service) => service.id === style.serviceId);
 }
 export function styleBookingUrl(style: HaircutStyle) {
-  const url = new URL(buildWhatsAppUrl([style.serviceId], "", ""));
-  url.searchParams.set("text", `${url.searchParams.get("text") ?? ""}\nGewenste stijl: ${style.name}`);
-  return url.toString();
+  return buildWhatsAppUrl([style.serviceId], "", "", `Gewenste stijl: ${style.name}`);
 }

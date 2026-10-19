@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { HAIRCUT_STYLES, filterStyles, stylePrice, styleBookingUrl } from "@/lib/styles";
+import { HAIRCUT_STYLES, filterStyles, styleService, styleBookingUrl } from "@/lib/styles";
 
 describe("style showcase", () => {
   it("filters all six styles into their requested categories", () => {
@@ -9,16 +9,17 @@ describe("style showcase", () => {
     expect(filterStyles("Klassiek & Modern").map(s => s.id)).toEqual(["crop", "classic"]);
     expect(filterStyles("Kinderen").map(s => s.id)).toEqual(["kids"]);
   });
-  it("preserves existing haircut, combo and children prices", () => {
-    expect(HAIRCUT_STYLES.map(stylePrice)).toEqual([20, 30, 20, 20, 20, 18]);
+  it("maps every style to an existing treatment", () => {
+    expect(HAIRCUT_STYLES.map((s) => styleService(s)?.id)).toEqual(["haar", "combo", "haar", "haar", "haar", "kids"]);
   });
-  it("books each exact style using its associated treatment and price", () => {
+  it("books each exact style via WhatsApp without any price", () => {
     for (const style of HAIRCUT_STYLES) {
       const url = new URL(styleBookingUrl(style));
       expect(url.hostname).toBe("wa.me");
       expect(url.pathname).toBe("/32465467934");
-      expect(url.searchParams.get("text")).toContain(`Gewenste stijl: ${style.name}`);
-      expect(url.searchParams.get("text")).toContain(`Totaal: €${stylePrice(style)}`);
+      const text = url.searchParams.get("text") ?? "";
+      expect(text).toContain(`Gewenste stijl: ${style.name}`);
+      expect(text).not.toContain("€");
     }
   });
 });
