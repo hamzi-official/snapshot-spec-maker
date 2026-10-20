@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import shop1 from "@/assets/shop1.jpeg.asset.json";
 import shop2 from "@/assets/shop2.jpeg.asset.json";
@@ -59,14 +60,14 @@ export function PhotoGallery() {
           </figure>
         ))}
       </div>
-      {idx !== null && list[idx] && (
+      {idx !== null && list[idx] && createPortal(
         <div role="dialog" aria-label="Foto volledig scherm" className="fixed inset-0 z-[80] flex items-center justify-center bg-background/95 p-4 backdrop-blur-md" onClick={() => setIdx(null)}>
           <img src={list[idx].src} alt={list[idx].cap} className="hd-img max-h-[86vh] max-w-full rounded-xl border border-primary/40 object-contain shadow-gold" onClick={(e) => e.stopPropagation()} />
           <p className="absolute bottom-6 inset-x-0 text-center font-display text-gold-light">{list[idx].cap} · {idx + 1}/{list.length}</p>
           <button aria-label="Sluiten" className="absolute right-4 top-4 rounded-full border border-primary/50 p-2 text-primary" onClick={() => setIdx(null)}><X /></button>
           <button aria-label="Vorige foto" className="absolute left-3 rounded-full border border-primary/50 bg-background/60 p-2 text-primary" onClick={(e) => { e.stopPropagation(); go(-1); }}><ChevronLeft /></button>
           <button aria-label="Volgende foto" className="absolute right-3 rounded-full border border-primary/50 bg-background/60 p-2 text-primary" onClick={(e) => { e.stopPropagation(); go(1); }}><ChevronRight /></button>
-        </div>
+        </div>, document.body
       )}
     </>
   );

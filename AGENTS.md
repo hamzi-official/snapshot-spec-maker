@@ -12,3 +12,4 @@
 - Style records map to shop service IDs for price-free WhatsApp messages; prices render only in main price-list rows and booking-modal treatment choices.
 - Hours copy across hero, FAQ and walk-in modal derives from shop data; closed badges use the next opening time in Brussels to avoid Sunday drift.
 - Decorative motion is isolated in luxury-motion with CSS animations and reduced-motion fallbacks to keep content accessible without animation.
+- Gallery lightboxes render into document.body so animated section transforms cannot trap fullscreen controls behind the navigation.
