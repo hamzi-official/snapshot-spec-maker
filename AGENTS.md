@@ -9,5 +9,7 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 - Shop data (prices, hours, contact) and open-status/WhatsApp logic live in src/lib/shop.ts, tested in src/test/shop.test.ts — single source of truth for the page.
-- Style records map to shop service IDs and derive prices and WhatsApp messages from shop data to prevent pricing drift.
+- Style records map to shop service IDs for price-free WhatsApp messages; prices render only in main price-list rows and booking-modal treatment choices.
+- Hours copy across hero, FAQ and walk-in modal derives from shop data; closed badges use the next opening time in Brussels to avoid Sunday drift.
 - Decorative motion is isolated in luxury-motion with CSS animations and reduced-motion fallbacks to keep content accessible without animation.
+- Gallery lightboxes render into document.body so animated section transforms cannot trap fullscreen controls behind the navigation.

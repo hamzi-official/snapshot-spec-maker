@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BarberPole, AmbientBackground, BarberToolsLayer, RadarLayer, useLuxuryReveals } from "@/components/luxury-motion";
+import { Button } from "@/components/ui/button";
 import { PhotoGallery } from "@/components/photo-gallery";
 import { CookieConsent, LegalModal } from "@/components/legal";
 import outside2 from "@/assets/outside2.jpeg.asset.json";
@@ -16,7 +17,7 @@ import shop3 from "@/assets/shop3.jpeg.asset.json";
 import shop4 from "@/assets/shop4.jpeg.asset.json";
 import shop5 from "@/assets/shop5.jpeg.asset.json";
 import {
-  ADDRESS, EMAIL, HOURS, FACEBOOK, INSTAGRAM, MAPS_URL, PHONE, PHONE_RAW, SERVICES, TIKTOK, buildWhatsAppUrl, isOpen,
+  ADDRESS, EMAIL, HOURS, FACEBOOK, INSTAGRAM, MAPS_URL, PHONE, PHONE_RAW, SERVICES, TIKTOK, HOURS_SUMMARY, WEEKDAY_HOURS_TEXT, SUNDAY_HOURS_TEXT, buildWhatsAppUrl, isOpen, nextOpeningTime,
 } from "@/lib/shop";
 
 export const Route = createFileRoute("/")({
@@ -34,7 +35,7 @@ export const Route = createFileRoute("/")({
 });
 
 const NAV = [
-  ["Home", "#home"], ["Over Ons", "#over"], ["Behandelingen", "#prijzen"], ["Galerij", "#galerij"], ["Veelgestelde Vragen", "#faq"], ["Contact", "#contact"],
+  ["Home", "#home"], ["Over Ons", "#over"], ["Prijslijst", "#prijzen"], ["Galerij", "#galerij"], ["Veelgestelde Vragen", "#faq"], ["Contact", "#contact"],
 ];
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -66,13 +67,20 @@ function useOpen() {
 }
 
 function StatusBadge({ open }: { open: boolean | null }) {
+  const [openingTime, setOpeningTime] = useState("09:00");
+  useEffect(() => {
+    const update = () => setOpeningTime(nextOpeningTime());
+    update();
+    const timer = setInterval(update, 60000);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1.5 text-xs font-medium">
       <span className={`relative flex h-2 w-2`}>
         {open && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />}
         <span className={`relative inline-flex h-2 w-2 rounded-full ${open ? "bg-success" : "bg-muted-foreground"}`} />
       </span>
-      {open === null ? "Status laden…" : open ? "Nu Geopend • Zonder Afspraak Welkom" : "Open vanaf 09:00u"}
+      {open === null ? "Status laden…" : open ? "Nu Geopend • Zonder Afspraak Welkom" : `Open vanaf ${openingTime}u`}
     </span>
   );
 }
@@ -144,6 +152,7 @@ function Index() {
               <button onClick={() => setModal("book")} className={goldBtn}><MessageCircle className="h-4 w-4" />Afspraak via WhatsApp</button>
               <a href="#contact" className={outlineBtn}><MapPin className="h-4 w-4" />Kom Zonder Afspraak Langs</a>
             </div>
+            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{HOURS_SUMMARY}</p>
             <div className="mt-6"><Socials /></div>
           </div>
           <div className="hero-showcase relative mx-auto h-[420px] w-full max-w-md sm:h-[480px]">
@@ -183,7 +192,7 @@ function Index() {
                 [CalendarDays, "Vrije Inloop & Op Afspraak", "Geen tijd om vooraf te reserveren? Geen probleem! Bij ons ben je elke dag welkom zonder afspraak, of reserveer eenvoudig je plek via WhatsApp."],
                 [Scissors, "Meesterlijke Fades & Baarden", "Van een messcherpe skin fade tot een klassieke herensnit en strakke baardcontouren."],
                 [Sparkles, "Topkwaliteit Producten", "Wij werken met premium verzorgings- en stylingproducten zoals Bandido voor een langdurig resultaat."],
-                [Clock, "7 Dagen Per Week Open", "Ook op zondag geopend van 09:00 tot 15:00 uur zodat je altijd fris het weekend of de nieuwe week ingaat."],
+                [Clock, "7 Dagen Per Week Open", `Ook op zondag geopend van ${SUNDAY_HOURS_TEXT} uur zodat je altijd fris het weekend of de nieuwe week ingaat.`],
               ].map(([Icon, t, d]) => {
                 const I = Icon as typeof Crown;
                 return (
@@ -199,13 +208,14 @@ function Index() {
         </div>
       </section>
 
-      {/* BEHANDELINGEN */}
+      {/* PRIJSLIJST */}
       <section id="prijzen" data-reveal className="relative py-28">
+        <BarberToolsLayer />
         <div className="glow-blue absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2" />
         <div className="relative mx-auto max-w-4xl px-4">
           <div className="text-center">
             <Crown className="mx-auto h-8 w-8 text-primary" />
-            <div className="mt-3 flex items-center justify-center gap-5 sm:gap-8"><BarberPole small /><h2 className="text-3xl font-bold sm:text-5xl"><span className="text-gold">Onze Behandelingen</span></h2></div>
+            <div className="mt-3 flex items-center justify-center gap-5 sm:gap-8"><BarberPole small /><h2 className="text-3xl font-bold sm:text-5xl"><span className="text-gold">Prijslijst</span></h2></div>
           </div>
           <div className="mt-12 rounded-3xl border border-primary/40 bg-card/80 p-4 shadow-gold sm:p-10">
             {SERVICES.map((s) => (
@@ -217,8 +227,9 @@ function Index() {
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
                 </div>
-                <div className="flex items-center gap-4">
-                  <button onClick={() => openBooking(s.id)} className={`${outlineBtn} px-4 py-2 text-xs`}>Kies behandeling</button>
+                <div className="flex shrink-0 items-center justify-between gap-4 sm:justify-end">
+                  <span className="min-w-14 text-2xl font-semibold tabular-nums text-gold">€{s.price}</span>
+                  <Button variant="ghost" onClick={() => openBooking(s.id)} className={`${outlineBtn} h-auto px-4 py-2 text-xs`}>Kies behandeling</Button>
                 </div>
               </div>
             ))}
@@ -253,7 +264,7 @@ function Index() {
         <Accordion type="single" collapsible className="mt-10">
           {[
             ["Moet ik een afspraak maken of kan ik zonder afspraak langskomen?", "Beide is mogelijk! Je bent bij King Barbershop altijd van harte welkom zonder afspraak (vrije inloop). Wil je liever zeker zijn van een specifiek tijdstip? Stuur ons dan snel een berichtje via WhatsApp of bel naar +32 465 46 79 34."],
-            ["Wat zijn jullie openingstijden?", "Wij zijn 7 dagen per week geopend! Van maandag t/m zaterdag van 09:00 tot 19:00 uur, en op zondag van 09:00 tot 15:00 uur."],
+            ["Wat zijn jullie openingstijden?", `Wij zijn 7 dagen per week geopend! ${HOURS_SUMMARY}.`],
             ["Waar zijn jullie gevestigd in Dessel?", "Je vindt ons aan de Turnhoutsebaan 21, 2480 Dessel. Er is voldoende parkeergelegenheid in de directe omgeving."],
             ["Hoe kan ik betalen in de barbershop?", "Je kunt bij ons eenvoudig contant of digitaal betalen na afloop van je knipbeurt."],
           ].map(([q, a], i) => (
@@ -267,10 +278,10 @@ function Index() {
 
       {/* CONTACT */}
       <section id="contact" data-reveal className="relative overflow-hidden">
-        <RadarLayer />
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-28">
         <h2 className="text-center text-3xl font-bold sm:text-4xl">Locatie & <span className="text-gold">Openingstijden</span></h2>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="relative isolate mt-12 grid gap-6 lg:grid-cols-3">
+          <RadarLayer />
           <div className="space-y-6 rounded-2xl border border-border bg-card p-8">
             <div><p className="flex items-center gap-2 font-semibold text-primary"><MapPin className="h-4 w-4" />Adres</p><p className="mt-1 text-sm">Turnhoutsebaan 21, 2480 Dessel, België</p>
               <a href={MAPS_URL} target="_blank" rel="noreferrer" className={`${outlineBtn} mt-3 px-4 py-2 text-xs`}><Navigation className="h-3 w-3" />Plan Route via Google Maps</a></div>
@@ -278,7 +289,7 @@ function Index() {
               <a href={`tel:+${PHONE_RAW}`} className="mt-1 block text-sm hover:text-primary">{PHONE}</a>
               <a href={`https://wa.me/${PHONE_RAW}`} target="_blank" rel="noreferrer" className="text-sm text-whatsapp hover:underline">Stuur een WhatsApp</a></div>
             <div><p className="flex items-center gap-2 font-semibold text-primary"><Mail className="h-4 w-4" />E-mail</p><a href={`mailto:${EMAIL}`} className="mt-1 block break-all text-sm hover:text-primary">{EMAIL}</a></div>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-x-4 gap-y-3">
               <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm hover:text-primary"><Instagram className="h-4 w-4" />Instagram</a>
               <a href={TIKTOK} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm hover:text-primary"><TikTokIcon className="h-4 w-4" />TikTok</a>
               <a href={FACEBOOK} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm hover:text-primary"><Facebook className="h-4 w-4" />Facebook</a>
@@ -349,7 +360,7 @@ function BookingModal({ mode, setMode, open, selected, setSelected }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-background/80 p-0 backdrop-blur-sm sm:items-center sm:p-4" onClick={() => setMode(null)}>
-      <div className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-primary/50 bg-card p-6 shadow-gold sm:rounded-3xl sm:p-8" onClick={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label="Afspraak & Inloop" className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-primary/50 bg-card p-6 shadow-gold sm:rounded-3xl sm:p-8" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold text-gold">Afspraak & Inloop</h3>
           <button onClick={() => setMode(null)} aria-label="Sluiten" className="text-muted-foreground hover:text-primary"><X /></button>
@@ -368,7 +379,7 @@ function BookingModal({ mode, setMode, open, selected, setSelected }: {
           <div className="mt-6 space-y-5">
             <StatusBadge open={open} />
             <p className="text-sm">📍 {ADDRESS}</p>
-            <ul className="space-y-1 text-sm text-muted-foreground"><li>Ma – Za: 09:00 – 19:00</li><li>Zondag: 09:00 – 15:00</li></ul>
+            <ul className="space-y-1 text-sm text-muted-foreground"><li>Ma – Za: {WEEKDAY_HOURS_TEXT}</li><li>Zondag: {SUNDAY_HOURS_TEXT}</li></ul>
             <a href={MAPS_URL} target="_blank" rel="noreferrer" className={`${goldBtn} w-full`}><Navigation className="h-4 w-4" />Route via Google Maps</a>
             <button onClick={() => setMode("choose")} className="w-full text-sm text-muted-foreground hover:text-primary">← Terug</button>
           </div>
@@ -378,9 +389,9 @@ function BookingModal({ mode, setMode, open, selected, setSelected }: {
             <p className="text-sm font-semibold">Kies je behandeling(en)</p>
             <div className="grid gap-2">
               {SERVICES.map((s) => (
-                <button key={s.id} onClick={() => toggle(s.id)} className={`flex justify-between rounded-xl border px-4 py-3 text-sm transition ${selected.includes(s.id) ? "border-primary bg-primary/10" : "border-border"}`}>
-                  <span>{s.name}</span>{selected.includes(s.id) && <span className="font-semibold text-primary">✓</span>}
-                </button>
+                <Button variant="ghost" key={s.id} aria-pressed={selected.includes(s.id)} onClick={() => toggle(s.id)} className={`h-auto justify-between gap-3 whitespace-normal rounded-lg border px-4 py-3 text-left text-sm transition ${selected.includes(s.id) ? "border-primary bg-primary/10" : "border-border"}`}>
+                  <span>{s.name}</span><span className="flex shrink-0 items-center gap-2 font-semibold text-primary">{selected.includes(s.id) && <span aria-hidden="true">✓</span>}€{s.price}</span>
+                </Button>
               ))}
             </div>
             <input className={input} placeholder="Je naam" value={name} onChange={(e) => setName(e.target.value)} />

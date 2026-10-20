@@ -15,7 +15,8 @@ export function AmbientBackground() {
       <defs><pattern id="royal-hexagons" width="104" height="180" patternUnits="userSpaceOnUse"><path d="M52 0 104 30 104 90 52 120 0 90 0 30Z M52 120 52 180 M0 90 0 150 52 180 104 150 104 90" fill="none" stroke="currentColor" strokeWidth="0.8" /></pattern></defs>
       <rect width="100%" height="100%" fill="url(#royal-hexagons)" />
     </svg>
-    <div className="gold-dust">{Array.from({ length: 24 }, (_, i) => <i key={i} />)}</div>
+    <BarberToolsLayer />
+    <div className="gold-dust">{Array.from({ length: 16 }, (_, i) => <i key={i} />)}</div>
   </div>;
 }
 
@@ -29,7 +30,7 @@ const Razor = () => <svg viewBox="0 0 64 64" className="tool-svg"><path {...P} d
 const Jar = () => <svg viewBox="0 0 64 64" className="tool-svg"><path {...P} d="M12 20h40v6H12zM14 26h36v24a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z" /><path {...P} d="M22 38h20" /></svg>;
 const MiniPole = () => <svg viewBox="0 0 64 64" className="tool-svg"><path {...P} d="M24 8h16v6H24zM24 50h16v6H24zM26 14h12v36H26z" /><path {...P} d="M26 22l12-6M26 32l12-8M26 42l12-8M26 50l12-6" /></svg>;
 
-const TOOLS = [Scissors, Comb, Clipper, Razor, Jar, MiniPole, Scissors, Comb, Clipper, Razor, Jar, MiniPole, Scissors, Clipper];
+const TOOLS = [Scissors, Comb, Jar, Razor, Scissors, Clipper, Jar, MiniPole];
 /** Floating gold barber-tool silhouettes behind a section. */
 export function BarberToolsLayer() {
   return <div className="tools-layer" aria-hidden="true">{TOOLS.map((T, i) => <span key={i} className="tool-float"><T /></span>)}</div>;
