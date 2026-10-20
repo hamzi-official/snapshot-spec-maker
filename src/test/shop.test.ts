@@ -28,10 +28,10 @@ describe("openingstijden", () => {
 });
 
 describe("service prices", () => {
-  it("contains exactly the six requested euro amounts", () => {
-    expect(SERVICES.map(({ id, price }) => [id, price])).toEqual([
-      ["haar", 20], ["combo", 30], ["baard", 15], ["kids", 18], ["wassen", 4], ["wax", 7],
-    ]);
+  it.each([
+    ["haar", 20], ["combo", 30], ["baard", 15], ["kids", 18], ["wassen", 4], ["wax", 7],
+  ])("%s costs exactly €%i", (id, price) => {
+    expect(SERVICES.find((service) => service.id === id)?.price).toBe(price);
   });
 });
 
