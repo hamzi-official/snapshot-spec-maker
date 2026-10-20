@@ -1,9 +1,9 @@
 - [x] Add decorative barber poles, ambient motion, logo aura and scroll/hover effects.
 - [x] Add six style portraits, category filters and style-specific WhatsApp links using existing prices.
 - [x] Verify filters, links, original shop content and mobile layout.
-- [ ] Restore exact prices only in Prijslijst and booking modal; keep photos/style cards price-free.
-- [ ] Update all Sunday hours and live status to 10:00–16:00.
-- [ ] GDPR cookie banner with preferences + legal modals in footer.
-- [ ] Facebook links everywhere alongside Instagram/TikTok.
-- [ ] Filterable gallery with new photos + full-screen lightbox.
-- [ ] Refine uncluttered barber-tool motion, hero/title poles and location radar; verify desktop/mobile and booking.
+- [x] Restore exact prices only in Prijslijst and booking modal; keep photos/style cards price-free.
+- [x] Update all Sunday hours and live status to 10:00–16:00.
+- [x] GDPR cookie banner with preferences + legal modals in footer (legal copy requires shop review).
+- [x] Facebook links everywhere alongside Instagram/TikTok.
+- [x] Filterable gallery with new photos + full-screen lightbox.
+- [x] Refine uncluttered barber-tool motion, hero/title poles and location radar; verify desktop/mobile and booking.
