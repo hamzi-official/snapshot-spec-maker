@@ -227,7 +227,7 @@ img { image-rendering: high-quality; }
 
 /* Barber tool silhouettes */
 .tools-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; color: var(--primary); }
-.tool-float { position: absolute; bottom: -80px; width: 54px; height: 54px; opacity: 0; filter: drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 60%, transparent)); animation: tool-rise 32s linear infinite; }
+.tool-float { position: absolute; top: 105%; width: 54px; height: 54px; opacity: 0; filter: drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 60%, transparent)); animation: tool-rise 48s linear infinite; }
 .tool-svg { width: 100%; height: 100%; }
 .tool-float:nth-child(1) { left: 4%; animation-delay: -2s; }
 .tool-float:nth-child(2) { left: 14%; animation-delay: -9s; animation-duration: 38s; width: 44px; }
@@ -243,18 +243,24 @@ img { image-rendering: high-quality; }
 .tool-float:nth-child(12) { left: 9%; animation-delay: -28s; animation-duration: 44s; }
 .tool-float:nth-child(13) { left: 47%; animation-delay: -34s; width: 38px; }
 .tool-float:nth-child(14) { left: 66%; animation-delay: -16s; animation-duration: 39s; width: 46px; }
-.blade-a, .blade-b { transform-origin: 32px 32px; animation: snip 2.4s ease-in-out infinite; }
+.blade-a, .blade-b { transform-origin: 32px 32px; animation: snip 5s ease-in-out infinite; }
 .blade-b { animation-name: snip-b; }
 @keyframes snip { 0%,100% { transform: rotate(0); } 50% { transform: rotate(-12deg); } }
 @keyframes snip-b { 0%,100% { transform: rotate(0); } 50% { transform: rotate(12deg); } }
-@keyframes tool-rise { 0% { opacity: 0; transform: translateY(0) rotate(0); } 10%,80% { opacity: .16; } 100% { opacity: 0; transform: translateY(-115vh) rotate(200deg); } }
+@keyframes tool-rise { 0% { opacity: 0; transform: translateY(0) rotate(0); } 15%,75% { opacity: .08; } 100% { opacity: 0; transform: translateY(-2100%) rotate(35deg); } }
 
 /* GPS radar */
-.radar-layer { position: absolute; left: 50%; top: 55%; width: 0; height: 0; pointer-events: none; z-index: 0; }
-.radar-layer span { position: absolute; left: -350px; top: -350px; width: 700px; height: 700px; border-radius: 50%; border: 1.5px solid var(--primary); opacity: 0; animation: radar 6s ease-out infinite; }
-.radar-layer span:nth-child(2) { animation-delay: 2s; }
-.radar-layer span:nth-child(3) { animation-delay: 4s; }
-.radar-pin { position: absolute; left: -36px; top: -150px; width: 72px; filter: drop-shadow(0 18px 20px color-mix(in oklab, var(--primary) 40%, transparent)); opacity: .5; animation: pin-bob 4s ease-in-out infinite; }
-@keyframes radar { 0% { transform: scale(.1); opacity: .55; } 100% { transform: scale(1.4); opacity: 0; } }
+.radar-layer { position: absolute; inset: -12%; pointer-events: none; z-index: -1; display: grid; place-items: center; }
+.radar-layer span { position: absolute; width: min(100%, 900px); aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--primary); opacity: 0; animation: radar 9s ease-out infinite; }
+.radar-layer span:nth-child(2) { animation-delay: -3s; }
+.radar-layer span:nth-child(3) { animation-delay: -6s; }
+.radar-pin { position: absolute; top: -35px; left: calc(50% - 36px); width: 72px; filter: drop-shadow(0 18px 20px color-mix(in oklab, var(--primary) 40%, transparent)); opacity: .12; animation: pin-bob 4s ease-in-out infinite; }
+@keyframes radar { 0% { transform: scale(.35); opacity: .24; } 100% { transform: scale(1.4); opacity: 0; } }
 @keyframes pin-bob { 0%,100% { transform: translateY(0) rotateY(0); } 50% { transform: translateY(-16px) rotateY(180deg); } }
 @media (prefers-reduced-motion: reduce) { .tools-layer, .radar-layer { display: none; } }
+
+/* Keep the global backdrop sparse and location waves visible around the cards. */
+.ambient-background > .tools-layer { opacity: .5; }
+.ambient-grid { display: none; }
+.radar-layer span:first-child { animation-delay: -1s; }
+@media (max-width: 640px) { .tool-float:nth-child(n+5) { display: none; } }
