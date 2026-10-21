@@ -32,16 +32,32 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Generate static index.html and 404.html
+        run: |
+          if [ -f ./.output/server/index.mjs ]; then
+            PORT=3000 bun ./.output/server/index.mjs &
+          else
+            bunx vite preview --port 3000 --host &
+          fi
+          SERVER_PID=$!
+          for i in {1..20}; do
+            if curl -s -f http://localhost:3000/ -o /tmp/index.html && [ -s /tmp/index.html ]; then
+              echo "index.html generated successfully!"
+              break
+            fi
+            sleep 1
+          done
+          kill $SERVER_PID 2>/dev/null || true
+          cp /tmp/index.html ./.output/public/index.html
+          cp /tmp/index.html ./.output/public/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
-    
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './.output/public' 
-         
+          path: './.output/public'
 
   deploy:
     environment:
