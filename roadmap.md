@@ -7,3 +7,4 @@
 - [x] Facebook links everywhere alongside Instagram/TikTok.
 - [x] Filterable gallery with new photos + full-screen lightbox.
 - [x] Refine uncluttered barber-tool motion, hero/title poles and location radar; verify desktop/mobile and booking.
+- [ ] Remove all appointment/WhatsApp controls and booking window; replace with walk-in badges and location/hours actions; verify.
