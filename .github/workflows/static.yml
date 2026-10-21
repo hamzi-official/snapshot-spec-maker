@@ -1,17 +1,4 @@
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
+group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -32,15 +19,15 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Create 404.html fallback
-        run: cp ./.output/public/index.html ./.output/public/404.html
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+    
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          path: './.output/public' 
           path: './.output/public'
 
   deploy:
