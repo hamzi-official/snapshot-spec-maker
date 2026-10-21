@@ -32,8 +32,13 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Create 404 page
+        run: cp ./.output/public/index.html ./.output/public/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+    
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
