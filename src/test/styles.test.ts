@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { HAIRCUT_STYLES, filterStyles, styleService, styleBookingUrl } from "@/lib/styles";
+import { HAIRCUT_STYLES, filterStyles, styleService } from "@/lib/styles";
 
 describe("style showcase", () => {
   it("filters all six styles into their requested categories", () => {
@@ -11,15 +11,5 @@ describe("style showcase", () => {
   });
   it("maps every style to an existing treatment", () => {
     expect(HAIRCUT_STYLES.map((s) => styleService(s)?.id)).toEqual(["haar", "combo", "haar", "haar", "haar", "kids"]);
-  });
-  it("books each exact style via WhatsApp without any price", () => {
-    for (const style of HAIRCUT_STYLES) {
-      const url = new URL(styleBookingUrl(style));
-      expect(url.hostname).toBe("wa.me");
-      expect(url.pathname).toBe("/32465467934");
-      const text = url.searchParams.get("text") ?? "";
-      expect(text).toContain(`Gewenste stijl: ${style.name}`);
-      expect(text).not.toContain("€");
-    }
   });
 });

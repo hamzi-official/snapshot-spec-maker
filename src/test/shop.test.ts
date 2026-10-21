@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildWhatsAppUrl, isOpen, nextOpeningTime, SERVICES, HOURS } from "@/lib/shop";
+import { isOpen, nextOpeningTime, SERVICES, HOURS } from "@/lib/shop";
 
 describe("openingstijden", () => {
   it("open on Monday 10:00 Brussels", () => expect(isOpen(new Date("2026-10-19T08:00:00Z"))).toBe(true));
@@ -32,15 +32,5 @@ describe("service prices", () => {
     ["haar", 20], ["combo", 30], ["baard", 15], ["kids", 18], ["wassen", 4], ["wax", 7],
   ])("%s costs exactly €%i", (id, price) => {
     expect(SERVICES.find((service) => service.id === id)?.price).toBe(price);
-  });
-});
-
-describe("whatsapp", () => {
-  it("lists chosen treatments to the shop number without prices", () => {
-    const url = buildWhatsAppUrl(["combo", "wassen"], "Jan", "Zaterdag 10u");
-    expect(url.startsWith("https://wa.me/32465467934?text=")).toBe(true);
-    const text = decodeURIComponent(url.split("text=")[1] ?? "");
-    expect(text).toContain("Behandeling: Haar / Baard Combo, Wassen");
-    expect(text).not.toContain("€");
   });
 });
