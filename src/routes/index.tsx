@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  Crown, Scissors, Sparkles, CalendarDays, MapPin, Phone, Mail, Clock, MessageCircle, X, Instagram, Navigation, Menu, Facebook,
+  Crown, Scissors, Sparkles, MapPin, Phone, Mail, Clock, Instagram, Navigation, Menu, Facebook,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BarberPole, AmbientBackground, BarberToolsLayer, RadarLayer, useLuxuryReveals } from "@/components/luxury-motion";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { PhotoGallery } from "@/components/photo-gallery";
 import { CookieConsent, LegalModal } from "@/components/legal";
 import outside2 from "@/assets/outside2.jpeg.asset.json";
+import { WalkInBadge, WalkInAction } from "@/components/walk-in";
 import { StyleShowcase } from "@/components/style-showcase";
 import logo from "@/assets/logo.jpeg.asset.json";
 import shop1 from "@/assets/shop1.jpeg.asset.json";
@@ -17,16 +18,16 @@ import shop3 from "@/assets/shop3.jpeg.asset.json";
 import shop4 from "@/assets/shop4.jpeg.asset.json";
 import shop5 from "@/assets/shop5.jpeg.asset.json";
 import {
-  ADDRESS, EMAIL, HOURS, FACEBOOK, INSTAGRAM, MAPS_URL, PHONE, PHONE_RAW, SERVICES, TIKTOK, HOURS_SUMMARY, WEEKDAY_HOURS_TEXT, SUNDAY_HOURS_TEXT, buildWhatsAppUrl, isOpen, nextOpeningTime,
+  ADDRESS, EMAIL, HOURS, FACEBOOK, INSTAGRAM, MAPS_URL, PHONE, PHONE_RAW, SERVICES, TIKTOK, HOURS_SUMMARY, SUNDAY_HOURS_TEXT, isOpen, nextOpeningTime,
 } from "@/lib/shop";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "King Barbershop Dessel | Zonder afspraak welkom" },
-      { name: "description", content: "Luxe barbershop in Dessel. Fades, baarden en klassieke snitten. Zonder afspraak welkom of reserveer via WhatsApp. 7 dagen open." },
+      { name: "description", content: "Luxe barbershop in Dessel. Fades, baarden en klassieke snitten. Geen afspraak nodig – Altijd welkom (Vrije inloop). 7 dagen open." },
       { property: "og:title", content: "King Barbershop Dessel" },
-      { property: "og:description", content: "Kom koninklijk goed voor de dag. Vrije inloop & afspraak via WhatsApp, 7 dagen per week." },
+      { property: "og:description", content: "Kom koninklijk goed voor de dag. Geen afspraak nodig – Altijd welkom (Vrije inloop), 7 dagen per week." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -91,15 +92,9 @@ const outlineBtn = "inline-flex items-center justify-center gap-2 rounded-full b
 function Index() {
   useLuxuryReveals();
   const open = useOpen();
-  const [modal, setModal] = useState<null | "choose" | "walkin" | "book">(null);
-  const [selected, setSelected] = useState<string[]>([]);
   const [mobileNav, setMobileNav] = useState(false);
   const [legal, setLegal] = useState<string | null>(null);
   const [cookieSignal, setCookieSignal] = useState(0);
-
-  const openBooking = (serviceId?: string) => {
-    if (serviceId) { setSelected([serviceId]); setModal("book"); } else setModal("choose");
-  };
 
   return (
     <div className="site-shell relative isolate min-h-screen overflow-x-hidden pb-20 md:pb-0">
@@ -119,7 +114,7 @@ function Index() {
             <a href={INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram" className="hidden text-muted-foreground hover:text-primary sm:block"><Instagram className="h-5 w-5" /></a>
             <a href={TIKTOK} target="_blank" rel="noreferrer" aria-label="TikTok" className="hidden text-muted-foreground hover:text-primary sm:block"><TikTokIcon className="h-5 w-5" /></a>
             <a href={FACEBOOK} target="_blank" rel="noreferrer" aria-label="Facebook" className="hidden text-muted-foreground hover:text-primary sm:block"><Facebook className="h-5 w-5" /></a>
-            <button onClick={() => openBooking()} className={`${goldBtn} hidden px-4 py-2 sm:inline-flex`}>Kom Langs / Afspraak</button>
+            <WalkInAction compact className="hidden px-4 py-2 sm:inline-flex" />
             <button onClick={() => setMobileNav(!mobileNav)} className="text-primary lg:hidden" aria-label="Menu"><Menu /></button>
           </div>
         </div>
@@ -139,9 +134,7 @@ function Index() {
         <BarberToolsLayer />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 lg:grid-cols-[1.2fr_1fr]">
           <div>
-            <span className="inline-block rounded-full border border-primary/50 bg-primary/10 px-4 py-2 text-[11px] font-semibold tracking-widest text-primary sm:text-xs">
-              👑 ZONDER AFSPRAAK WELKOM & OP AFSPRAAK • 7 DAGEN OPEN
-            </span>
+            <WalkInBadge />
             <h1 className="mt-6 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
               Kom <span className="text-gold">Koninklijk</span> Goed Voor De Dag Bij King Barbershop Dessel
             </h1>
@@ -149,8 +142,7 @@ function Index() {
               Dé plek voor een frisse coupe, strakke fade of perfect bijgewerkte baard. Verwacht een relaxte sfeer, aandacht voor detail en een look waarmee je koninklijk goed voor de dag komt. Kom langs, neem plaats in de stoel en laat je verzorgen zoals het hoort.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <button onClick={() => setModal("book")} className={goldBtn}><MessageCircle className="h-4 w-4" />Afspraak via WhatsApp</button>
-              <a href="#contact" className={outlineBtn}><MapPin className="h-4 w-4" />Kom Zonder Afspraak Langs</a>
+              <WalkInAction />
             </div>
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{HOURS_SUMMARY}</p>
             <div className="mt-6"><Socials /></div>
@@ -170,7 +162,7 @@ function Index() {
         </div>
         <div className="absolute inset-x-0 bottom-0 border-t border-border glass">
           <div className="mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 py-4 text-xs text-muted-foreground sm:text-sm lg:grid-cols-4">
-            <span>✂️ Zonder Afspraak & Op Afspraak</span><span>🕘 7 Dagen Per Week Geopend</span>
+            <span>✂️ Altijd welkom (Vrije inloop)</span><span>🕘 7 Dagen Per Week Geopend</span>
             <span>💈 Premium Bandido Styling</span><span>📍 Turnhoutsebaan 21, Dessel</span>
           </div>
         </div>
@@ -189,7 +181,7 @@ function Index() {
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Waarom <span className="text-gold">King Barbershop</span></h2>
             <div className="mt-10 grid gap-6 sm:grid-cols-2">
               {[
-                [CalendarDays, "Vrije Inloop & Op Afspraak", "Geen tijd om vooraf te reserveren? Geen probleem! Bij ons ben je elke dag welkom zonder afspraak, of reserveer eenvoudig je plek via WhatsApp."],
+                [MapPin, "Vrije inloop", "Geen afspraak nodig – Altijd welkom (Vrije inloop). Loop gerust binnen tijdens onze openingstijden."],
                 [Scissors, "Meesterlijke Fades & Baarden", "Van een messcherpe skin fade tot een klassieke herensnit en strakke baardcontouren."],
                 [Sparkles, "Topkwaliteit Producten", "Wij werken met premium verzorgings- en stylingproducten zoals Bandido voor een langdurig resultaat."],
                 [Clock, "7 Dagen Per Week Open", `Ook op zondag geopend van ${SUNDAY_HOURS_TEXT} uur zodat je altijd fris het weekend of de nieuwe week ingaat.`],
@@ -229,12 +221,12 @@ function Index() {
                 </div>
                 <div className="flex shrink-0 items-center justify-between gap-4 sm:justify-end">
                   <span className="min-w-14 text-2xl font-semibold tabular-nums text-gold">€{s.price}</span>
-                  <Button variant="ghost" onClick={() => openBooking(s.id)} className={`${outlineBtn} h-auto px-4 py-2 text-xs`}>Kies behandeling</Button>
+                  <span className="text-xs font-medium text-primary">Vrije inloop</span>
                 </div>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-sm text-muted-foreground">✨ Loop gerust binnen zonder afspraak of klik op een behandeling om direct via WhatsApp te reserveren.</p>
+          <div className="mt-6 flex flex-col items-center gap-4 text-center"><WalkInBadge /><WalkInAction /></div>
         </div>
       </section>
 
@@ -263,7 +255,7 @@ function Index() {
         <h2 className="text-center text-3xl font-bold sm:text-4xl">Veelgestelde <span className="text-gold">Vragen</span></h2>
         <Accordion type="single" collapsible className="mt-10">
           {[
-            ["Moet ik een afspraak maken of kan ik zonder afspraak langskomen?", "Beide is mogelijk! Je bent bij King Barbershop altijd van harte welkom zonder afspraak (vrije inloop). Wil je liever zeker zijn van een specifiek tijdstip? Stuur ons dan snel een berichtje via WhatsApp of bel naar +32 465 46 79 34."],
+            ["Kan ik gewoon binnenlopen?", "Geen afspraak nodig – Altijd welkom (Vrije inloop). Wij werken niet op afspraak. Kom gerust langs tijdens onze openingstijden."],
             ["Wat zijn jullie openingstijden?", `Wij zijn 7 dagen per week geopend! ${HOURS_SUMMARY}.`],
             ["Waar zijn jullie gevestigd in Dessel?", "Je vindt ons aan de Turnhoutsebaan 21, 2480 Dessel. Er is voldoende parkeergelegenheid in de directe omgeving."],
             ["Hoe kan ik betalen in de barbershop?", "Je kunt bij ons eenvoudig contant of digitaal betalen na afloop van je knipbeurt."],
@@ -285,9 +277,9 @@ function Index() {
           <div className="space-y-6 rounded-2xl border border-border bg-card p-8">
             <div><p className="flex items-center gap-2 font-semibold text-primary"><MapPin className="h-4 w-4" />Adres</p><p className="mt-1 text-sm">Turnhoutsebaan 21, 2480 Dessel, België</p>
               <a href={MAPS_URL} target="_blank" rel="noreferrer" className={`${outlineBtn} mt-3 px-4 py-2 text-xs`}><Navigation className="h-3 w-3" />Plan Route via Google Maps</a></div>
-            <div><p className="flex items-center gap-2 font-semibold text-primary"><Phone className="h-4 w-4" />Telefoon & WhatsApp</p>
+            <div><p className="flex items-center gap-2 font-semibold text-primary"><Phone className="h-4 w-4" />Telefoon</p>
               <a href={`tel:+${PHONE_RAW}`} className="mt-1 block text-sm hover:text-primary">{PHONE}</a>
-              <a href={`https://wa.me/${PHONE_RAW}`} target="_blank" rel="noreferrer" className="text-sm text-whatsapp hover:underline">Stuur een WhatsApp</a></div>
+            </div>
             <div><p className="flex items-center gap-2 font-semibold text-primary"><Mail className="h-4 w-4" />E-mail</p><a href={`mailto:${EMAIL}`} className="mt-1 block break-all text-sm hover:text-primary">{EMAIL}</a></div>
             <div className="flex flex-wrap gap-x-4 gap-y-3">
               <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm hover:text-primary"><Instagram className="h-4 w-4" />Instagram</a>
@@ -330,79 +322,15 @@ function Index() {
         <p className="border-t border-border py-6 text-center text-xs text-muted-foreground">© King Barbershop Dessel - Alle rechten voorbehouden</p>
       </footer>
 
-      {/* FLOATING WHATSAPP */}
-      <button onClick={() => setModal("book")} aria-label="WhatsApp" className="animate-pulse-ring fixed bottom-24 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-primary-foreground md:bottom-6">
-        <MessageCircle className="h-6 w-6" />
-      </button>
-
       {/* MOBILE BAR */}
       <div className="glass fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-border md:hidden">
         <a href={`tel:+${PHONE_RAW}`} className="py-4 text-center text-sm">📞 Bel Nu</a>
-        <a href={`https://wa.me/${PHONE_RAW}`} target="_blank" rel="noreferrer" className="border-x border-border py-4 text-center text-sm">💬 WhatsApp</a>
+        <Button asChild variant="ghost" className="h-auto whitespace-normal rounded-none border-x border-border py-4 text-center text-xs"><a href="#contact"><Clock aria-hidden="true" />Openingstijden</a></Button>
         <a href={MAPS_URL} target="_blank" rel="noreferrer" className="py-4 text-center text-sm">📍 Route</a>
       </div>
 
       <CookieConsent openSignal={cookieSignal} />
       {legal && <LegalModal id={legal} onClose={() => setLegal(null)} />}
-      {modal && <BookingModal mode={modal} setMode={setModal} open={open} selected={selected} setSelected={setSelected} />}
-    </div>
-  );
-}
-
-function BookingModal({ mode, setMode, open, selected, setSelected }: {
-  mode: "choose" | "walkin" | "book"; setMode: (m: null | "choose" | "walkin" | "book") => void; open: boolean | null;
-  selected: string[]; setSelected: (s: string[]) => void;
-}) {
-  const [name, setName] = useState("");
-  const [when, setWhen] = useState("");
-  const toggle = (id: string) => setSelected(selected.includes(id) ? selected.filter((x) => x !== id) : [...selected, id]);
-  const input = "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary";
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-background/80 p-0 backdrop-blur-sm sm:items-center sm:p-4" onClick={() => setMode(null)}>
-      <div role="dialog" aria-modal="true" aria-label="Afspraak & Inloop" className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-primary/50 bg-card p-6 shadow-gold sm:rounded-3xl sm:p-8" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold text-gold">Afspraak & Inloop</h3>
-          <button onClick={() => setMode(null)} aria-label="Sluiten" className="text-muted-foreground hover:text-primary"><X /></button>
-        </div>
-        {mode === "choose" && (
-          <div className="mt-6 grid gap-4">
-            <button onClick={() => setMode("walkin")} className="rounded-2xl border border-border p-5 text-left transition hover:border-primary">
-              <MapPin className="h-6 w-6 text-primary" /><p className="mt-2 font-semibold">Direct Langskomen (Zonder Afspraak)</p><p className="text-sm text-muted-foreground">Bekijk of we nu open zijn en plan je route.</p>
-            </button>
-            <button onClick={() => setMode("book")} className="rounded-2xl border border-border p-5 text-left transition hover:border-primary">
-              <MessageCircle className="h-6 w-6 text-whatsapp" /><p className="mt-2 font-semibold">Tijdstip Reserveren via WhatsApp</p><p className="text-sm text-muted-foreground">Kies je behandeling en gewenst moment.</p>
-            </button>
-          </div>
-        )}
-        {mode === "walkin" && (
-          <div className="mt-6 space-y-5">
-            <StatusBadge open={open} />
-            <p className="text-sm">📍 {ADDRESS}</p>
-            <ul className="space-y-1 text-sm text-muted-foreground"><li>Ma – Za: {WEEKDAY_HOURS_TEXT}</li><li>Zondag: {SUNDAY_HOURS_TEXT}</li></ul>
-            <a href={MAPS_URL} target="_blank" rel="noreferrer" className={`${goldBtn} w-full`}><Navigation className="h-4 w-4" />Route via Google Maps</a>
-            <button onClick={() => setMode("choose")} className="w-full text-sm text-muted-foreground hover:text-primary">← Terug</button>
-          </div>
-        )}
-        {mode === "book" && (
-          <div className="mt-6 space-y-4">
-            <p className="text-sm font-semibold">Kies je behandeling(en)</p>
-            <div className="grid gap-2">
-              {SERVICES.map((s) => (
-                <Button variant="ghost" key={s.id} aria-pressed={selected.includes(s.id)} onClick={() => toggle(s.id)} className={`h-auto justify-between gap-3 whitespace-normal rounded-lg border px-4 py-3 text-left text-sm transition ${selected.includes(s.id) ? "border-primary bg-primary/10" : "border-border"}`}>
-                  <span>{s.name}</span><span className="flex shrink-0 items-center gap-2 font-semibold text-primary">{selected.includes(s.id) && <span aria-hidden="true">✓</span>}€{s.price}</span>
-                </Button>
-              ))}
-            </div>
-            <input className={input} placeholder="Je naam" value={name} onChange={(e) => setName(e.target.value)} />
-            <input className={input} placeholder="Gewenste dag & tijd (bv. zaterdag 11u)" value={when} onChange={(e) => setWhen(e.target.value)} />
-            <a href={buildWhatsAppUrl(selected, name, when)} target="_blank" rel="noreferrer" className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:brightness-110">
-              <MessageCircle className="h-4 w-4" />Verstuur via WhatsApp
-            </a>
-            <button onClick={() => setMode("choose")} className="w-full text-sm text-muted-foreground hover:text-primary">← Terug</button>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

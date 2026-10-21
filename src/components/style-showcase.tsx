@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { MessageCircle, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { STYLE_FILTERS, filterStyles, styleBookingUrl, type StyleCategory } from "@/lib/styles";
+import { WalkInBadge } from "@/components/walk-in";
+import { STYLE_FILTERS, filterStyles, type StyleCategory } from "@/lib/styles";
 import skin from "@/assets/style-a-1.jpg";
 import combo from "@/assets/style-a-2.jpg";
 import crop from "@/assets/style-a-3.jpg";
@@ -23,15 +23,14 @@ export function StyleShowcase() {
     </div>
     <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite">
       {filterStyles(category).map((style) => <article key={style.id} className="style-card group overflow-hidden rounded-lg border border-border bg-card">
-        <a href={styleBookingUrl(style)} target="_blank" rel="noreferrer" aria-label={`Reserveer ${style.name} via WhatsApp`} className="relative block overflow-hidden aspect-[4/5]">
+        <div className="relative block overflow-hidden aspect-[4/5]">
           <img src={portraits[style.id]} alt={style.name} loading="lazy" width={640} height={1024} className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-          <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-gold text-primary-foreground"><ArrowUpRight className="h-5 w-5" /></span>
-        </a>
+        </div>
         <div className="p-5">
           <p className="text-xs text-primary">{style.category}</p>
           <h3 className="mt-2 min-h-14 text-lg font-semibold leading-7">{style.name}</h3>
           <p className="mt-2 min-h-10 text-sm leading-5 text-muted-foreground">{style.desc}</p>
-          <Button asChild variant="outline" className="luxury-shimmer mt-5 w-full border-primary/50 bg-transparent text-primary hover:bg-primary/10 hover:text-primary"><a href={styleBookingUrl(style)} target="_blank" rel="noreferrer"><MessageCircle />Reserveer deze stijl</a></Button>
+          <WalkInBadge className="mt-5 w-full" />
         </div>
       </article>)}
     </div>

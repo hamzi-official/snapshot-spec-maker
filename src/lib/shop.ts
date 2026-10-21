@@ -7,7 +7,7 @@ export const INSTAGRAM = "https://www.instagram.com/king.barbershop.dessel";
 export const TIKTOK = "https://www.tiktok.com/@king.barbershop.dessel";
 export const FACEBOOK = "https://www.facebook.com/king.barbershop.dessel";
 
-/** Prices are displayed only in the main price list and booking modal. */
+/** Prices are displayed only in the main price list. */
 export type Service = { id: string; name: string; price: number; desc: string; badge?: string };
 export const SERVICES: Service[] = [
   { id: "haar", name: "Haar", price: 20, desc: "Frisse coupe, strakke fade of klassieke snit inclusief professionele styling" },
@@ -45,18 +45,4 @@ export function nextOpeningTime(date: Date = new Date()): string {
   const { wd, mins } = brusselsTime(date);
   const nextIsSunday = (wd === "Sun" && mins < 16 * 60) || (wd === "Sat" && mins >= 19 * 60);
   return nextIsSunday ? "10:00" : "09:00";
-}
-
-export function buildWhatsAppUrl(ids: string[], name: string, when: string, extra?: string): string {
-  const chosen = SERVICES.filter((s) => ids.includes(s.id));
-  const lines = [
-    "Hallo King Barbershop! 👑",
-    "Ik wil graag een afspraak maken.",
-    "",
-    `Behandeling: ${chosen.map((s) => s.name).join(", ") || "Nog te bepalen"}`,
-    extra ?? "",
-    `Naam: ${name || "-"}`,
-    `Gewenste dag/tijd: ${when || "-"}`,
-  ].filter((l, i) => l !== "" || i === 2);
-  return `https://wa.me/${PHONE_RAW}?text=${encodeURIComponent(lines.join("\n"))}`;
 }

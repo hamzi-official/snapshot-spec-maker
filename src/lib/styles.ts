@@ -1,4 +1,4 @@
-import { SERVICES, buildWhatsAppUrl } from "@/lib/shop";
+import { SERVICES } from "@/lib/shop";
 
 export const STYLE_FILTERS = ["Alle Stijlen", "Skin Fades & Taper", "Baard & Contouren", "Klassiek & Modern", "Kinderen"] as const;
 export type StyleCategory = (typeof STYLE_FILTERS)[number];
@@ -16,7 +16,4 @@ export function filterStyles(category: StyleCategory) {
 }
 export function styleService(style: HaircutStyle) {
   return SERVICES.find((service) => service.id === style.serviceId);
-}
-export function styleBookingUrl(style: HaircutStyle) {
-  return buildWhatsAppUrl([style.serviceId], "", "", `Gewenste stijl: ${style.name}`);
 }

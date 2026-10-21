@@ -47,7 +47,6 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
   --color-success: var(--success);
-  --color-whatsapp: var(--whatsapp);
   --color-gold-light: var(--gold-light);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -88,7 +87,6 @@
   --input: oklch(0.76 0.13 85 / 25%);
   --ring: oklch(0.76 0.13 85);
   --success: oklch(0.75 0.19 150);
-  --whatsapp: oklch(0.68 0.17 150);
   --gold-light: oklch(0.92 0.06 90);
   --gold-gradient: linear-gradient(135deg, oklch(0.76 0.13 85), oklch(0.92 0.06 90) 50%, oklch(0.7 0.13 80));
   --shadow-gold: 0 10px 40px -10px oklch(0.76 0.13 85 / 45%);
@@ -149,9 +147,7 @@
   &:hover img { transform: scale(1.07); }
 }
 @utility animate-float { animation: float 6s ease-in-out infinite; }
-@utility animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
 @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
-@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--whatsapp) 60%, transparent) } 100% { box-shadow: 0 0 0 22px transparent } }
 
 /* Decorative motion stays behind content and never intercepts input. */
 .ambient-background { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: var(--background); }
