@@ -8,15 +8,15 @@ import { BarberPole, AmbientBackground, BarberToolsLayer, RadarLayer, useLuxuryR
 import { Button } from "@/components/ui/button";
 import { PhotoGallery } from "@/components/photo-gallery";
 import { CookieConsent, LegalModal } from "@/components/legal";
-import outside2 from "@/assets/outside2.jpeg.asset.json";
 import { WalkInBadge, WalkInAction } from "@/components/walk-in";
 import { StyleShowcase } from "@/components/style-showcase";
-import logo from "@/assets/logo.jpeg.asset.json";
-import shop1 from "@/assets/shop1.jpeg.asset.json";
-import shop2 from "@/assets/shop2.jpeg.asset.json";
-import shop3 from "@/assets/shop3.jpeg.asset.json";
-import shop4 from "@/assets/shop4.jpeg.asset.json";
-import shop5 from "@/assets/shop5.jpeg.asset.json";
+const logo = "/logo.jpeg";
+const outside2 = "/outside2.jpeg";
+const shop1 = "/shop1.jpeg";
+const shop2 = "/shop2.jpeg";
+const shop3 = "/shop3.jpeg";
+const shop4 = "/shop4.jpeg";
+const shop5 = "/shop5.jpeg";
 import {
   ADDRESS, EMAIL, HOURS, FACEBOOK, INSTAGRAM, MAPS_URL, PHONE, PHONE_RAW, SERVICES, TIKTOK, HOURS_SUMMARY, SUNDAY_HOURS_TEXT, isOpen, nextOpeningTime,
 } from "@/lib/shop";
