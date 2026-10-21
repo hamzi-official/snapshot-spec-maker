@@ -1,34 +1,23 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
-import shop1 from "@/assets/shop1.jpeg.asset.json";
-import shop2 from "@/assets/shop2.jpeg.asset.json";
-import shop3 from "@/assets/shop3.jpeg.asset.json";
-import shop4 from "@/assets/shop4.jpeg.asset.json";
-import shop5 from "@/assets/shop5.jpeg.asset.json";
-import outside1 from "@/assets/outside1.jpeg.asset.json";
-import outside2 from "@/assets/outside2.jpeg.asset.json";
-import outside3 from "@/assets/outside3.jpeg.asset.json";
-import nightView from "@/assets/night-view.jpeg.asset.json";
-import flag from "@/assets/flag.jpeg.asset.json";
-import tools from "@/assets/tools.jpeg.asset.json";
-import waxLamp from "@/assets/wax-lamp.jpeg.asset.json";
 
 export const GALLERY_FILTERS = ["Alle Foto's", "Buitenkant & Pand", "Binnenkant & Sfeer", "Styling, Wax & Tools"] as const;
 type Cat = (typeof GALLERY_FILTERS)[number];
+
 const PHOTOS: { src: string; cap: string; cat: Cat; tall?: boolean }[] = [
-  { src: outside2, cap: "Ons Pand aan de Turnhoutsebaan", cat: "Buitenkant & Pand", tall: true },
-  { src: shop3, cap: "Hexagon LED Plafond", cat: "Binnenkant & Sfeer", tall: true },
-  { src: outside1, cap: "Gratis Parkeren Voor De Deur", cat: "Buitenkant & Pand" },
-  { src: shop1, cap: "Premium Bandido Producten", cat: "Styling, Wax & Tools" },
-  { src: nightView, cap: "Avondsfeer Door Het Raam", cat: "Binnenkant & Sfeer", tall: true },
-  { src: flag, cap: "Onze Barbervlag Aan De Straat", cat: "Buitenkant & Pand", tall: true },
-  { src: tools, cap: "Kammen, Scharen & Sprays", cat: "Styling, Wax & Tools", tall: true },
-  { src: shop5, cap: "Verlichte Barberpaal", cat: "Binnenkant & Sfeer", tall: true },
-  { src: outside3, cap: "Ruime Parking Aan De Zaak", cat: "Buitenkant & Pand" },
-  { src: waxLamp, cap: "Edison Lamp & Bandido Wax", cat: "Styling, Wax & Tools", tall: true },
-  { src: shop2, cap: "Onze Werkplek & Spiegels", cat: "Binnenkant & Sfeer", tall: true },
-  { src: shop4, cap: "Aandacht Voor Detail", cat: "Styling, Wax & Tools", tall: true },
+  { src: "/outside2.jpeg", cap: "Ons Pand aan de Turnhoutsebaan", cat: "Buitenkant & Pand", tall: true },
+  { src: "/shop3.jpeg", cap: "Hexagon LED Plafond", cat: "Binnenkant & Sfeer", tall: true },
+  { src: "/outside1.jpeg", cap: "Gratis Parkeren Voor De Deur", cat: "Buitenkant & Pand" },
+  { src: "/shop1.jpeg", cap: "Premium Bandido Producten", cat: "Styling, Wax & Tools" },
+  { src: "/night-view.jpeg", cap: "Avondsfeer Door Het Raam", cat: "Binnenkant & Sfeer", tall: true },
+  { src: "/flag.jpeg", cap: "Onze Barbervlag Aan De Straat", cat: "Buitenkant & Pand", tall: true },
+  { src: "/tools.jpeg", cap: "Kammen, Scharen & Sprays", cat: "Styling, Wax & Tools", tall: true },
+  { src: "/shop5.jpeg", cap: "Verlichte Barberpaal", cat: "Binnenkant & Sfeer", tall: true },
+  { src: "/outside3.jpeg", cap: "Ruime Parking Aan De Zaak", cat: "Buitenkant & Pand" },
+  { src: "/wax-lamp.jpeg", cap: "Edison Lamp & Bandido Wax", cat: "Styling, Wax & Tools", tall: true },
+  { src: "/shop2.jpeg", cap: "Onze Werkplek & Spiegels", cat: "Binnenkant & Sfeer", tall: true },
+  { src: "/shop4.jpeg", cap: "Aandacht Voor Detail", cat: "Styling, Wax & Tools", tall: true },
 ];
 
 export function PhotoGallery() {
