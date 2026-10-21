@@ -17,18 +17,18 @@ import waxLamp from "@/assets/wax-lamp.jpeg.asset.json";
 export const GALLERY_FILTERS = ["Alle Foto's", "Buitenkant & Pand", "Binnenkant & Sfeer", "Styling, Wax & Tools"] as const;
 type Cat = (typeof GALLERY_FILTERS)[number];
 const PHOTOS: { src: string; cap: string; cat: Cat; tall?: boolean }[] = [
-  { src: outside2.url, cap: "Ons Pand aan de Turnhoutsebaan", cat: "Buitenkant & Pand", tall: true },
-  { src: shop3.url, cap: "Hexagon LED Plafond", cat: "Binnenkant & Sfeer", tall: true },
-  { src: outside1.url, cap: "Gratis Parkeren Voor De Deur", cat: "Buitenkant & Pand" },
-  { src: shop1.url, cap: "Premium Bandido Producten", cat: "Styling, Wax & Tools" },
-  { src: nightView.url, cap: "Avondsfeer Door Het Raam", cat: "Binnenkant & Sfeer", tall: true },
-  { src: flag.url, cap: "Onze Barbervlag Aan De Straat", cat: "Buitenkant & Pand", tall: true },
-  { src: tools.url, cap: "Kammen, Scharen & Sprays", cat: "Styling, Wax & Tools", tall: true },
-  { src: shop5.url, cap: "Verlichte Barberpaal", cat: "Binnenkant & Sfeer", tall: true },
-  { src: outside3.url, cap: "Ruime Parking Aan De Zaak", cat: "Buitenkant & Pand" },
-  { src: waxLamp.url, cap: "Edison Lamp & Bandido Wax", cat: "Styling, Wax & Tools", tall: true },
-  { src: shop2.url, cap: "Onze Werkplek & Spiegels", cat: "Binnenkant & Sfeer", tall: true },
-  { src: shop4.url, cap: "Aandacht Voor Detail", cat: "Styling, Wax & Tools", tall: true },
+  { src: outside2, cap: "Ons Pand aan de Turnhoutsebaan", cat: "Buitenkant & Pand", tall: true },
+  { src: shop3, cap: "Hexagon LED Plafond", cat: "Binnenkant & Sfeer", tall: true },
+  { src: outside1, cap: "Gratis Parkeren Voor De Deur", cat: "Buitenkant & Pand" },
+  { src: shop1, cap: "Premium Bandido Producten", cat: "Styling, Wax & Tools" },
+  { src: nightView, cap: "Avondsfeer Door Het Raam", cat: "Binnenkant & Sfeer", tall: true },
+  { src: flag, cap: "Onze Barbervlag Aan De Straat", cat: "Buitenkant & Pand", tall: true },
+  { src: tools, cap: "Kammen, Scharen & Sprays", cat: "Styling, Wax & Tools", tall: true },
+  { src: shop5, cap: "Verlichte Barberpaal", cat: "Binnenkant & Sfeer", tall: true },
+  { src: outside3, cap: "Ruime Parking Aan De Zaak", cat: "Buitenkant & Pand" },
+  { src: waxLamp, cap: "Edison Lamp & Bandido Wax", cat: "Styling, Wax & Tools", tall: true },
+  { src: shop2, cap: "Onze Werkplek & Spiegels", cat: "Binnenkant & Sfeer", tall: true },
+  { src: shop4, cap: "Aandacht Voor Detail", cat: "Styling, Wax & Tools", tall: true },
 ];
 
 export function PhotoGallery() {
