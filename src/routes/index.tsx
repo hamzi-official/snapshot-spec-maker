@@ -10,6 +10,7 @@ import { PhotoGallery } from "@/components/photo-gallery";
 import { CookieConsent, LegalModal } from "@/components/legal";
 import { WalkInBadge, WalkInAction } from "@/components/walk-in";
 import { StyleShowcase } from "@/components/style-showcase";
+
 const logo = "/logo.jpeg";
 const outside2 = "/outside2.jpeg";
 const shop1 = "/shop1.jpeg";
@@ -17,6 +18,7 @@ const shop2 = "/shop2.jpeg";
 const shop3 = "/shop3.jpeg";
 const shop4 = "/shop4.jpeg";
 const shop5 = "/shop5.jpeg";
+
 import {
   ADDRESS, EMAIL, HOURS, FACEBOOK, INSTAGRAM, MAPS_URL, PHONE, PHONE_RAW, SERVICES, TIKTOK, HOURS_SUMMARY, SUNDAY_HOURS_TEXT, isOpen, nextOpeningTime,
 } from "@/lib/shop";
@@ -86,9 +88,6 @@ function StatusBadge({ open }: { open: boolean | null }) {
   );
 }
 
-const goldBtn = "luxury-shimmer inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground shadow-gold transition hover:brightness-110 hover:-translate-y-0.5";
-const outlineBtn = "inline-flex items-center justify-center gap-2 rounded-full border border-primary/60 px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary/10";
-
 function Index() {
   useLuxuryReveals();
   const open = useOpen();
@@ -103,7 +102,7 @@ function Index() {
       <header className="glass fixed inset-x-0 top-0 z-40 border-b border-border">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <a href="#home" className="flex items-center gap-3">
-            <img src={logo.url} alt="King Barbershop logo" className="h-11 w-11 rounded-full border border-primary/50 object-cover" />
+            <img src={logo} alt="King Barbershop logo" className="h-11 w-11 rounded-full border border-primary/50 object-cover" />
             <span className="font-display text-sm font-bold tracking-widest text-gold sm:text-base">KING BARBERSHOP</span>
           </a>
           <nav className="hidden items-center gap-6 lg:flex">
@@ -128,7 +127,7 @@ function Index() {
 
       {/* HERO */}
       <section id="home" className="relative flex min-h-screen items-center pt-24">
-        <img src={shop2.url} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <img src={shop2} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/40" />
         <div className="glow-blue absolute -right-40 top-20 h-[600px] w-[600px]" />
         <BarberToolsLayer />
@@ -148,13 +147,13 @@ function Index() {
             <div className="mt-6"><Socials /></div>
           </div>
           <div className="hero-showcase relative mx-auto h-[420px] w-full max-w-md sm:h-[480px]">
-            <div className="lux-frame absolute left-0 top-6 h-56 w-40 rotate-[-6deg] sm:h-64 sm:w-44"><img src={shop4.url} alt="Edison lamp boven Bandido wax" className="h-full w-full object-cover" /></div>
-            <div className="lux-frame absolute bottom-0 right-0 h-56 w-40 rotate-[6deg] sm:h-64 sm:w-44"><img src={shop5.url} alt="Verlichte barberpaal" className="h-full w-full object-cover" /></div>
+            <div className="lux-frame absolute left-0 top-6 h-56 w-40 rotate-[-6deg] sm:h-64 sm:w-44"><img src={shop4} alt="Edison lamp boven Bandido wax" className="h-full w-full object-cover" /></div>
+            <div className="lux-frame absolute bottom-0 right-0 h-56 w-40 rotate-[6deg] sm:h-64 sm:w-44"><img src={shop5} alt="Verlichte barberpaal" className="h-full w-full object-cover" /></div>
             <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 sm:h-72 sm:w-72">
               <div className="absolute inset-0 rounded-full bg-primary/30 blur-3xl" />
               <div className="royal-emblem relative h-full w-full">
                 <div className="royal-halo" aria-hidden="true" />
-                <img src={logo.url} alt="King Barbershop embleem" className="relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover shadow-gold sm:h-72 sm:w-72" />
+                <img src={logo} alt="King Barbershop embleem" className="relative h-60 w-60 rounded-full border-2 border-primary/60 object-cover shadow-gold sm:h-72 sm:w-72" />
               </div>
             </div>
             <div className="hero-pole"><BarberPole /></div>
@@ -172,9 +171,9 @@ function Index() {
       <section id="over" data-reveal className="relative mx-auto max-w-7xl px-4 py-28">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="grid grid-cols-2 gap-4">
-            <div className="lux-frame row-span-2 h-[460px]"><img src={shop3.url} alt="Hexagon LED plafond" loading="lazy" className="h-full w-full object-cover" /></div>
-            <div className="lux-frame h-[222px]"><img src={shop1.url} alt="Bandido wax piramide" loading="lazy" className="h-full w-full object-cover" /></div>
-            <div className="lux-frame h-[222px]"><img src={shop4.url} alt="Edison lamp" loading="lazy" className="h-full w-full object-cover" /></div>
+            <div className="lux-frame row-span-2 h-[460px]"><img src={shop3} alt="Hexagon LED plafond" loading="lazy" className="h-full w-full object-cover" /></div>
+            <div className="lux-frame h-[222px]"><img src={shop1} alt="Bandido wax piramide" loading="lazy" className="h-full w-full object-cover" /></div>
+            <div className="lux-frame h-[222px]"><img src={shop4} alt="Edison lamp" loading="lazy" className="h-full w-full object-cover" /></div>
           </div>
           <div>
             <p className="text-xs font-semibold tracking-[0.3em] text-primary">OVER ONS</p>
@@ -300,7 +299,7 @@ function Index() {
           </div>
         </div>
         <figure className="lux-frame relative mt-6 h-72 sm:h-96">
-          <img src={outside2.url} alt="Voorgevel King Barbershop, Turnhoutsebaan 21" loading="lazy" className="hd-img h-full w-full object-cover object-[50%_70%]" />
+          <img src={outside2} alt="Voorgevel King Barbershop, Turnhoutsebaan 21" loading="lazy" className="hd-img h-full w-full object-cover object-[50%_70%]" />
           <figcaption className="absolute inset-x-3 bottom-3 rounded-2xl border border-primary/60 bg-background/85 px-4 py-3 text-center text-sm font-semibold text-gold-light backdrop-blur sm:inset-x-auto sm:left-5 sm:bottom-5">🅿️ Gratis & Ruime Parkeergelegenheid Direct Voor De Deur (Turnhoutsebaan 21)</figcaption>
         </figure>
         </div>
@@ -309,7 +308,7 @@ function Index() {
       {/* FOOTER */}
       <footer className="border-t border-border bg-card/50">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-3">
-          <div className="flex items-center gap-3"><img src={logo.url} alt="" className="h-16 w-16 rounded-full border border-primary/50" /><span className="font-display font-bold tracking-widest text-gold">KING BARBERSHOP</span></div>
+          <div className="flex items-center gap-3"><img src={logo} alt="" className="h-16 w-16 rounded-full border border-primary/50" /><span className="font-display font-bold tracking-widest text-gold">KING BARBERSHOP</span></div>
           <nav className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">{NAV.map(([l, h]) => <a key={h} href={h} className="hover:text-primary">{l}</a>)}</nav>
           <div className="space-y-1 text-sm text-muted-foreground"><p>{ADDRESS}</p><p>{PHONE}</p><p className="break-all">{EMAIL}</p><div className="pt-3"><Socials /></div></div>
         </div>
