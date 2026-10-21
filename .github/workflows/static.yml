@@ -32,6 +32,9 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Create 404.html fallback
+        run: cp ./.output/public/index.html ./.output/public/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
